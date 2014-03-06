@@ -1,3 +1,5 @@
+package org.pbv;
+
 import javax.swing.*;
 
 public class PBV {
@@ -6,7 +8,6 @@ public class PBV {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new MainWindow().setVisible(true);
-
             }
         });
     }

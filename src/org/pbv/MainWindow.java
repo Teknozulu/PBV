@@ -1,3 +1,7 @@
+package org.pbv;
+
+import org.pbv.components.LightScrollPane;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -25,13 +29,29 @@ public class MainWindow extends JFrame {
         }
     }
 
+    JButton b;
+    JTextArea jTextArea;
+    JScrollPane jScrollPane;
+
     public MainWindow() {
 
         setUndecorated(true);
         setBackground(new Color(0, 0, 0, 0));
+        setLayout(null);
         setSize(800, 600);
         setLocation(100, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+
+        b = new JButton("Hello");
+        b.setBounds(50, 50, 100, 100);
+        add(b);
+
+        jTextArea = new JTextArea(100, 100);
+        jScrollPane = new LightScrollPane(jTextArea);
+        jScrollPane.setBounds(50, 160, 100, 100);
+        add(jScrollPane);
+
 
         addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
@@ -41,7 +61,7 @@ public class MainWindow extends JFrame {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getX() > 780 &&  e.getX() < 792 && e.getY() > 4 && e.getY() < 16) {
+                if (e.getX() > 780 && e.getX() < 792 && e.getY() > 4 && e.getY() < 16) {
                     dispose();
                 }
             }
@@ -59,7 +79,8 @@ public class MainWindow extends JFrame {
             public void mouseMoved(MouseEvent e) {
                 lastMouseMove.x = e.getX();
                 lastMouseMove.y = e.getY();
-                repaint();
+                if (lastMouseMove.x > 745 && lastMouseMove.y < 23)
+                    repaint();
             }
         });
     }
@@ -96,7 +117,7 @@ public class MainWindow extends JFrame {
         // Draw "X"
 
         boolean hovering = false;
-        Color hc = new Color(107, 65, 152, 255);
+        Color hc = new Color(255, 54, 61, 255);
         if (lastMouseMove.x > 780 && lastMouseMove.x < 792 && lastMouseMove.y > 4 && lastMouseMove.y < 16) {
             g.setColor(hc);
             hovering = true;
@@ -129,6 +150,8 @@ public class MainWindow extends JFrame {
         g.setColor(hovering ? hc : Color.LIGHT_GRAY);
         g.drawRect(750, 9, 16, 3);
 
+        b.repaint();
+        jScrollPane.repaint();
 
     }
 

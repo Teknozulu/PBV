@@ -15,7 +15,7 @@ public class LightScrollBar extends JScrollBar {
         int h = getHeight();
 
         g.setColor(Color.GREEN);
-        g.fillRect(0, 0, w, h);
+       // g.fillRect(0, 0, w, h);
 
         int min = getMinimum();
         int max = getMaximum();

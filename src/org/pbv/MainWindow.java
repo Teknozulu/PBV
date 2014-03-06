@@ -1,5 +1,6 @@
 package org.pbv;
 
+import org.pbv.components.PurpleButton;
 import org.pbv.components.LightScrollPane;
 
 import javax.swing.*;
@@ -18,20 +19,21 @@ public class MainWindow extends JFrame {
 
     private static ArrayList<Point> closeIconPoints = new ArrayList<Point>();
 
+    // Build the X
     static {
         for (int y = 0; y < 12; y++) {
-            // Build the \
             for (int x = y; x < y + 2; x++) {
-                // This will make it convenient to draw a border around the X
                 closeIconPoints.add(new Point(x, y));
                 closeIconPoints.add(new Point(12 - x, y));
             }
         }
     }
 
-    JButton b;
+    JButton browseButton;
+    JButton openFileButton;
     JTextArea jTextArea;
     JScrollPane jScrollPane;
+    JTextField fileField;
 
     public MainWindow() {
 
@@ -42,15 +44,37 @@ public class MainWindow extends JFrame {
         setLocation(100, 100);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-
-        b = new JButton("Hello");
-        b.setBounds(50, 50, 100, 100);
-        add(b);
-
         jTextArea = new JTextArea(100, 100);
         jScrollPane = new LightScrollPane(jTextArea);
         jScrollPane.setBounds(50, 160, 100, 100);
-        add(jScrollPane);
+        //add(jScrollPane);
+
+        fileField = new JTextField();
+        fileField.setText("Choose file...");
+        fileField.setBounds(5, 31, 400, 22);
+        fileField.setForeground(Color.LIGHT_GRAY);
+        fileField.setBackground(Color.BLACK);
+        fileField.setBorder(BorderFactory.createLineBorder(new Color(65, 40, 92, 255)));
+        add(fileField);
+
+        browseButton = new PurpleButton("Browse");
+        browseButton.setBounds(420, 31, 100, 22);
+        browseButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Hello world");
+                JFileChooser jfc = new JFileChooser();
+                jfc.showOpenDialog(null);
+                if (jfc.getSelectedFile() != null) {
+                    fileField.setText(jfc.getSelectedFile().getAbsolutePath());
+                }
+            }
+        });
+        add(browseButton);
+
+        openFileButton = new PurpleButton("Open");
+        openFileButton.setBounds(530, 31, 100, 22);
+        add(openFileButton);
 
 
         addMouseListener(new MouseAdapter() {
@@ -77,12 +101,23 @@ public class MainWindow extends JFrame {
 
             @Override
             public void mouseMoved(MouseEvent e) {
+                // Using xor to check if we either exited or entered an area that needs to be highlighted
+                boolean repaint = false; // This is because we have to update lastMouseMove before repainting
+                if (isPointInBox(780, 792, 4, 16, e.getX(), e.getY()) ^ isPointInBox(780, 792, 4, 16, lastMouseMove.x, lastMouseMove.y))
+                    repaint = true;
+                if (isPointInBox(747, 770, 1, 21, e.getX(), e.getY()) ^ isPointInBox(747, 770, 1, 21, lastMouseMove.x, lastMouseMove.y))
+                    repaint = true;
                 lastMouseMove.x = e.getX();
                 lastMouseMove.y = e.getY();
-                if (lastMouseMove.x > 745 && lastMouseMove.y < 23)
+                if (repaint) {
                     repaint();
+                }
             }
         });
+    }
+
+    private static boolean isPointInBox(int x1, int x2, int y1, int y2, int x, int y) {
+        return x > x1 && x < x2 && y > y1 && y < y2;
     }
 
     @Override
@@ -150,8 +185,9 @@ public class MainWindow extends JFrame {
         g.setColor(hovering ? hc : Color.LIGHT_GRAY);
         g.drawRect(750, 9, 16, 3);
 
-        b.repaint();
-        jScrollPane.repaint();
+        fileField.repaint();
+        browseButton.repaint();
+        openFileButton.repaint();
 
     }
 

@@ -6,6 +6,7 @@ public class PBV {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new MainWindow().setVisible(true);
+
             }
         });
     }

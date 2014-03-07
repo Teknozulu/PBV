@@ -1,4 +1,4 @@
-package org.pbv.components;
+package org.pbv.gui.components;
 
 public class CodeLine {
 

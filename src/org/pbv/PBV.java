@@ -1,5 +1,7 @@
 package org.pbv;
 
+import org.pbv.gui.MainWindow;
+
 import javax.swing.*;
 
 public class PBV {

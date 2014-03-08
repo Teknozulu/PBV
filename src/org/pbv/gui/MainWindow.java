@@ -1,8 +1,8 @@
 package org.pbv.gui;
 
 import org.pbv.Session;
+import org.pbv.gui.components.DarkButton;
 import org.pbv.gui.components.DarkScrollPane;
-import org.pbv.gui.components.PurpleButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +17,7 @@ public class MainWindow extends JFrame {
 
     private static final Color BACKGROUND_COLOR = new Color(6, 1, 12, 240);
     private static final Color DARK_PURPLE = new Color(25, 11, 31, 255);
+    private static final Color TRANSPARENT = new Color(0, 0, 0, 0);
 
     private static Point lastMousePress = new Point();
     private static Point lastMouseMove = new Point();
@@ -44,7 +45,7 @@ public class MainWindow extends JFrame {
     public MainWindow() {
 
         setUndecorated(true);
-        setBackground(new Color(0, 0, 0, 0));
+        setBackground(TRANSPARENT);
         setSize(800, 600);
         setLocation(100, 100);
         setTitle("Pleasant Bytecode Viewer");
@@ -123,7 +124,7 @@ public class MainWindow extends JFrame {
         fileField.setBorder(BorderFactory.createLineBorder(new Color(65, 40, 92, 255)));
         add(fileField);
 
-        browseButton = new PurpleButton("Browse");
+        browseButton = new DarkButton("Browse");
         browseButton.setBounds(430, 37, 100, 22);
         browseButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -137,7 +138,7 @@ public class MainWindow extends JFrame {
         });
         add(browseButton);
 
-        openFileButton = new PurpleButton("Open");
+        openFileButton = new DarkButton("Open");
         openFileButton.setBounds(545, 37, 100, 22);
         openFileButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -195,7 +196,7 @@ public class MainWindow extends JFrame {
             }
         });
         jScrollPane = new DarkScrollPane(fileList);
-        jScrollPane.setBounds(15, 74, 200, 200);
+        jScrollPane.setBounds(15, 74, 150, 400);
 
         add(jScrollPane);
 

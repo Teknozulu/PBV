@@ -5,14 +5,15 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class PurpleButton extends JButton {
+public class DarkButton extends JButton {
 
     private static final Color DARK_PURPLE = new Color(25, 11, 31, 255);
     private static final Color HOVER_COLOR = new Color(81, 20, 105, 249);
+    private static final Color BORDER_COLOR = new Color(65, 40, 92, 255);
 
     private boolean hovering = false;
 
-    public PurpleButton(String text) {
+    public DarkButton(String text) {
         super(text);
         addMouseListener(new MouseAdapter() {
             @Override
@@ -39,7 +40,7 @@ public class PurpleButton extends JButton {
         g.setColor(DARK_PURPLE);
         g.fillRect(0, 0, getWidth(), getHeight() - 1);
 
-        g.setColor(new Color(65, 40, 92, 255));
+        g.setColor(BORDER_COLOR);
         g.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
 
         g.setColor(hovering ? HOVER_COLOR : Color.WHITE);
